@@ -1,0 +1,14 @@
+README.md
+  h_ab3d32f3bee7c1 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "35164b2874786e03a73cfc1187e79242ecc9bf17",
+  "prompts": {},
+  "humans": {
+    "h_ab3d32f3bee7c1": {
+      "author": "Arbi Ramadhan <arbi.ramadhan@hypefast.id>"
+    }
+  }
+}
