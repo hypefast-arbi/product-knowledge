@@ -1,0 +1,60 @@
+plugins/pm-workflow/skills/bpmn-diagram-builder/SKILL.md
+  s_b604fb5414b03f::t_9f0677bba0d7b7 3
+  s_b604fb5414b03f::t_9bdbadd8c7156d 1-2
+  s_b604fb5414b03f::t_5f569a60f14d3f 4-6
+  s_b604fb5414b03f::t_82259c8288bc9a 7-133
+plugins/odoo-knowledge/.claude-plugin/plugin.json
+  s_b604fb5414b03f::t_59742eac6dd128 1-11
+plugins/pm-workflow/.claude-plugin/plugin.json
+  s_b604fb5414b03f::t_d4a02ea47df46e 1-11
+.claude-plugin/marketplace.json
+  s_b604fb5414b03f::t_db74210f52e47e 1-23
+README.md
+  s_b604fb5414b03f::t_98c786bc382b84 1-56
+plugins/odoo-knowledge/skills/odoo-essentials/SKILL.md
+  s_b604fb5414b03f::t_9f81da17eb95fd 1-126
+plugins/odoo-knowledge/skills/odoo-finance/SKILL.md
+  s_b604fb5414b03f::t_c93253a9815488 1-209
+plugins/odoo-knowledge/skills/odoo-hr/SKILL.md
+  s_b604fb5414b03f::t_f68548a3fa846a 1-298
+plugins/odoo-knowledge/skills/odoo-productivity/SKILL.md
+  s_b604fb5414b03f::t_c925bdba81f164 1-354
+plugins/odoo-knowledge/skills/odoo-sales/SKILL.md
+  s_b604fb5414b03f::t_bccabc04ff113e 1-251
+plugins/odoo-knowledge/skills/odoo-services/SKILL.md
+  s_b604fb5414b03f::t_a5de837ea3310e 1-322
+plugins/odoo-knowledge/skills/odoo-supply-chain/SKILL.md
+  s_b604fb5414b03f::t_1db25e343616bb 1-261
+plugins/pm-workflow/skills/bpmn-diagram-builder/references/bpmnio_di_reference.md
+  s_b604fb5414b03f::t_a217440bfded83 1-85
+plugins/pm-workflow/skills/bpmn-diagram-builder/references/drawio_mxgraph_reference.md
+  s_b604fb5414b03f::t_3d933f7fb515dd 1-73
+plugins/pm-workflow/skills/bpmn-diagram-builder/scripts/bpmn_builder.py
+  s_b604fb5414b03f::t_0040f19f87d5fa 1-465
+plugins/pm-workflow/skills/bpmn-diagram-builder/scripts/validate_bpmn.py
+  s_b604fb5414b03f::t_dfcbe524f540c2 1-110
+plugins/pm-workflow/skills/confluence-create-page/SKILL.md
+  s_b604fb5414b03f::t_b7405c5c32e579 1-157
+plugins/pm-workflow/skills/confluence-create-page/prd-template.html
+  s_b604fb5414b03f::t_6e000bf675d412 1
+plugins/pm-workflow/skills/jira-create-backlog-ticket/SKILL.md
+  s_b604fb5414b03f::t_c1e99880322a72 1-137
+plugins/pm-workflow/skills/success-criteria/SKILL.md
+  s_b604fb5414b03f::t_dc86152d54678a 1-129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "fef504834252056176ede0eff6790b0c0cd0bdb1",
+  "prompts": {},
+  "sessions": {
+    "s_b604fb5414b03f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "58854543-066b-4ae1-9312-796631366b0c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Hypefast <hypefast@Hypefasts-MacBook-Pro.local>"
+    }
+  }
+}
