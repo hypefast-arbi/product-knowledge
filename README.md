@@ -1,4 +1,3 @@
-test
 # product-knowledge
 
 A Claude Code **plugin marketplace** holding Arbi's product-management skills and Odoo functional knowledge. Version-controlled here so the skills are backed up, shareable with the team, and updated with a single `git pull`.
