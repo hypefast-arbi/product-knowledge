@@ -1,0 +1,23 @@
+{
+  "name": "product-knowledge",
+  "owner": {
+    "name": "Arbi Ramadhan",
+    "email": "arbi.ramadhan@hypefast.id"
+  },
+  "description": "Product-management workflow skills and Odoo functional knowledge for Hypefast PMs.",
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "pm-workflow",
+      "source": "./plugins/pm-workflow",
+      "description": "PM execution toolkit: create Confluence pages/PRDs, file Jira backlog tickets, write PRD success criteria, and build BPMN process diagrams."
+    },
+    {
+      "name": "odoo-knowledge",
+      "source": "./plugins/odoo-knowledge",
+      "description": "Odoo functional knowledge across Essentials, Finance, HR, Productivity, Sales, Services, and Supply Chain modules."
+    }
+  ]
+}

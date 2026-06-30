@@ -1,0 +1,11 @@
+{
+  "name": "odoo-knowledge",
+  "displayName": "Odoo Knowledge",
+  "description": "Odoo functional knowledge across Essentials, Finance, HR, Productivity, Sales, Services, and Supply Chain.",
+  "author": {
+    "name": "Arbi Ramadhan",
+    "email": "arbi.ramadhan@hypefast.id"
+  },
+  "repository": "https://github.com/hypefast-arbi/product-knowledge",
+  "keywords": ["odoo", "erp", "functional", "accounting", "inventory", "crm"]
+}

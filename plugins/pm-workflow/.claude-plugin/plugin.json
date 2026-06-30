@@ -1,0 +1,11 @@
+{
+  "name": "pm-workflow",
+  "displayName": "PM Workflow",
+  "description": "PM execution toolkit: Confluence pages/PRDs, Jira backlog tickets, PRD success criteria, and BPMN process diagrams.",
+  "author": {
+    "name": "Arbi Ramadhan",
+    "email": "arbi.ramadhan@hypefast.id"
+  },
+  "repository": "https://github.com/hypefast-arbi/product-knowledge",
+  "keywords": ["product-management", "confluence", "jira", "prd", "bpmn"]
+}
