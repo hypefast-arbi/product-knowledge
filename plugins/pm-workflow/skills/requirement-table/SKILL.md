@@ -31,19 +31,20 @@ Gather from the PRD page (or from what the user pastes):
 1. **Problem Statement + Objective/Goals** — why the work exists; every row should serve it.
 2. **Target Customer Persona** — the actors for user stories.
 3. **Solution Overview user stories** — the seed list of stories with module tags. If present, use it as the backbone of the table (refine wording, don't re-invent).
-4. **User Flows section** — links to SOP/flow documents. Read them (see below) to build user journeys; journeys drive acceptance criteria and descriptions.
+4. **User Flows section** — the list of named SOP/flow links. Use the flow **names** for grouping and traceability only — do NOT open the linked documents (see External content policy below). Journeys are derived from the PRD's own text plus anything the user pastes into chat.
 5. **Out of Scope** — never write rows for excluded scope.
 6. **Project knowledge (companion repo)** — the repo **https://github.com/hypefast-arbi/projects** holds complementary context about the project itself: domain/platform plugins (e.g. `odoo-knowledge`, `product-skills`) and per-project folders. When the PRD targets a known project, load the matching skills if installed, or clone/read that repo before drafting. It is context only — this skill still owns the workflow.
 
 **Placeholder check:** treat a section as missing if it's empty or still template placeholder text (`data-type="placeholder"`, "Put … here"). If the seed stories AND flows are both missing, ask the user for them — never invent the product.
 
-**Image-only content:** Confluence tools return page text only — goals/flows embedded as images (`data-type="media"` / blob URLs) are unreadable. If a needed input lives in an image, ask the user to paste or describe it.
+**External content policy (mandatory):** work from the PRD page text only.
 
-**Reading linked SOP documents:** flow links are often Google Docs. Read them with the Google Drive tools (`read_file_content` / `search_files`) using the doc ID from the URL (`/document/d/<ID>/`). If Drive access fails, ask the user to export/paste the flow.
+- **Never read external files.** Links inside the PRD (Google Docs/Sheets SOPs, external specs) are out of bounds — do not fetch them with Drive tools, WebFetch, or anything else, even when access would work. If flow detail is needed beyond what the PRD states, ask the user to paste the relevant part into chat.
+- **Never spend time fetching images.** Goals/flows embedded as images (`data-type="media"` / blob URLs) are not worth chasing — skip them immediately and, if their content is needed, ask the user to paste or describe it.
 
 ## Workflow
 
-1. **Read the PRD** (see "Reading from Confluence") and the linked flow/SOP docs. Confirm to the user what you understood: problem, personas, list of flows, seed stories.
+1. **Read the PRD** (see "Reading from Confluence") — the PRD page only, never its linked external documents. Confirm to the user what you understood: problem, personas, list of flows, seed stories.
 2. **Build the requirement list** — one candidate row per user story. Group rows by flow (follow the order of the User Flows section) so the table reads as a narrative of the process.
 3. **Draft each row using the sub-skills, in this order** (each builds on the previous):
 

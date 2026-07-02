@@ -4,9 +4,9 @@ Build the user journey for each flow. The journey is a **working artifact**: it 
 
 ## Source
 
-Derive journeys from the PRD's **User Flows** section: the linked SOP/flow documents (often Google Docs — read them via Google Drive tools) and any flow diagrams described in text. One journey per flow (e.g. one for procurement, one for vendor payment, one for goods receipt) — NOT one per story. Stories then map to one or more steps of a journey.
+Derive journeys from the PRD page's own text: the flow **names** in the User Flows section, the Solution Overview seed stories, the Problem Statement/Success Criteria, and any flow description the user pastes into chat. One journey per flow (e.g. one for procurement, one for vendor payment, one for goods receipt) — NOT one per story. Stories then map to one or more steps of a journey.
 
-If a flow document is unreadable (image-only, no access), ask the user to describe the flow. Never invent process steps.
+**Never open the linked SOP documents or fetch images** (external content policy in SKILL.md). If the PRD text isn't enough to sequence a flow, ask the user to describe it — and mark ordering you inferred yourself `(assumed — confirm)`. Never invent process steps.
 
 ## Format
 
