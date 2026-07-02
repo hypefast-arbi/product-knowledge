@@ -12,7 +12,7 @@
     {
       "name": "pm-workflow",
       "source": "./plugins/pm-workflow",
-      "description": "PM execution toolkit: create Confluence pages/PRDs, file Jira backlog tickets, write PRD success criteria, and build BPMN process diagrams."
+      "description": "PM execution toolkit: create Confluence pages/PRDs, file Jira backlog tickets, write PRD success criteria, fill PRD requirement tables (Description of the User Flows), and build BPMN process diagrams."
     },
     {
       "name": "odoo-knowledge",
