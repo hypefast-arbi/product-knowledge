@@ -119,13 +119,58 @@ Other projects may expose different/extra fields (e.g. Priority) — check with
   for whatever's missing.
 - Confirm the target project/board and that `Epic` appears in its issue types.
 
-## Step 3 — Create the issue inline
+## Step 2c — Deriving a title when the source has no title (e.g. bulk Stories from a PRD)
 
-Call the tool directly yourself — **do not delegate to a subagent** for the
-create call. A subagent re-pays a fixed startup tax (its own system prompt +
+A PRD's user-story tables (Solution Overview, Description of the User Flows)
+give the story sentence itself but rarely a short title. When asked to turn N
+user stories into N Story tickets, derive each title like this:
+
+1. **Prefer mining an existing scenario label.** If the row's Acceptance
+   Criteria already has Gherkin scenarios in the
+   `Scenario: <capability> - <label>` format (see
+   [[gherkin-template-preference]]), the `<label>` segment after the dash is
+   usually already a good short title — reuse it (capitalized) instead of
+   inventing a new phrase. When extracting this with a script, require a
+   space-hyphen-space separator (` - `), not a bare `-`, or the regex will
+   false-match inside hyphenated words like "auto-validate".
+2. **Otherwise, condense the "I want to …" clause** of the user story into a
+   short imperative phrase (e.g. "As a merchandiser, I want to create a new BOM
+   request…" → "Create BOM request").
+3. **Disambiguate before finalizing.** Extracted/condensed titles frequently
+   collide across rows (e.g. two different rows both reducing to "Create
+   request", or a restriction row reducing to "Allowed role" regardless of
+   which object it restricts). Scan the full title list for duplicates or
+   vague titles and sharpen them using the row's Module/object
+   (e.g. "Request production purchase order" vs. "Request raw material
+   purchase order"; "Restrict BOM edit access" vs. "Restrict manufacturing
+   order edit access").
+4. **Show the full title list for confirmation** before bulk-creating —
+   titles are inherently a judgment call, and creating dozens of tickets is
+   costly to redo. A quick compact review table is enough; don't ask
+   question-by-question for 30+ rows.
+5. Unless told otherwise, the ticket **Description is the user-story sentence
+   verbatim and nothing else** — no acceptance criteria, no bold lead-in, no
+   extra commentary appended.
+
+## Step 3 — Create the issue inline (single) or via a subagent (bulk)
+
+For **one** issue, call the tool directly yourself — **do not delegate to a
+subagent**. A subagent re-pays a fixed startup tax (its own system prompt +
 reloading the ~50 Atlassian MCP tool schemas, ~14k tokens) to avoid the tool's
 ~750-token verbose response — a net loss for one-off issue creation. Inline is
 the cheapest available method.
+
+For a **batch** (e.g. N Stories generated from a PRD's user-story table), the
+calculus flips: the subagent's fixed startup tax is paid once, while inlining
+N calls yourself means N × ~750 tokens of verbose tool-response noise land in
+your own context. Instead:
+1. Build the finalized per-ticket data (title, description, assignee, any
+   parent link) as a small script/JSON file — don't hand-construct it row by
+   row in prose.
+2. Delegate the whole batch to one subagent: "read this file, call
+   `createJiraIssue` once per entry with these exact fields, continue past
+   individual failures, report back only a compact result table." Keep the
+   ~750-token-per-call responses out of your own context entirely.
 
 Call `createJiraIssue` with:
 - `cloudId`: `a6661705-a333-4449-8206-6a19abf3d70f`
@@ -136,6 +181,9 @@ Call `createJiraIssue` with:
 - `assignee_account_id`: optional, resolved accountId
 - `additional_fields`: optional JSON for everything else, e.g.
   `{"labels": ["ai"], "customfield_10016": 3, "parent": {"key": "ASP-12"}}`
+  — the `parent` field (system field, type `issuelink`) links a Story/Task to
+  its Epic on **both** team-managed (ASP) and classic/company-managed (ERP)
+  projects; confirmed for ERP via `getJiraIssueTypeMetaWithFields`.
 
 The tool echoes back a large object (avatars, status metadata, schema). Ignore
 the noise — you only need `issues.nodes[0].key` and `webUrl`.
