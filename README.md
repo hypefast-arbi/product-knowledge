@@ -10,7 +10,7 @@ Two independently-installable plugins:
 
 | Plugin | Skills | Use it when |
 |---|---|---|
-| **pm-workflow** | `confluence-create-page`, `jira-create-backlog-ticket`, `success-criteria`, `requirement-table`, `bpmn-diagram-builder` | Doing PM execution work — PRDs, backlog, success metrics, requirement tables, process diagrams |
+| **pm-workflow** | `confluence-create-page`, `jira-create-ticket`, `success-criteria`, `requirement-table`, `bpmn-diagram-builder` | Doing PM execution work — PRDs, backlog, success metrics, requirement tables, process diagrams |
 
 ## Companion repo: project knowledge (`hypefast-arbi/projects`)
 
