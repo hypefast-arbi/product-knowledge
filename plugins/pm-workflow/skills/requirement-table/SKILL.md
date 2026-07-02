@@ -83,6 +83,13 @@ Only after the user approves the drafted table.
 
 **Minimize round-trips (token cost):** `updateConfluencePage` requires the entire page body. Target **one full-body HTML read + one full-body write** per run. Don't re-fetch to "be safe", don't re-fetch to verify a successful write (the incremented `version.number` confirms it), and set `includeBody: false` on the update call.
 
+**Editing an already-filled table (token economy — mandatory for column/cell updates):** once the table holds real rows the page is huge; never pull the whole body into context to change a few cells. Instead:
+
+1. Fetch the page (`contentFormat: "html"`) — a large result is auto-saved to a tool-results file; leave it there.
+2. **Patch with a local script** (PowerShell/Node): extract the `body` from the saved JSON, locate the target table by its section heading (local-ids can change between versions — don't key on them), apply the cell edits keyed on row order, and write the new body to a scratchpad file.
+3. **Verify in the script output, not by reading the body**: row count, a per-row snippet next to each injected value (to prove the mapping), and old/new length delta equal to the sum of inserted text.
+4. **Delegate the upload to a subagent**: have it re-read the scratchpad file in chunks (PowerShell `Substring` — single-line files can't be paginated by Read) and call `updateConfluencePage` with the content verbatim. The ~100k-char body then never enters the main conversation.
+
 ## Guardrails
 
 - Never write to Confluence without showing the draft and getting an explicit go-ahead.
