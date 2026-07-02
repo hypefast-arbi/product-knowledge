@@ -75,7 +75,7 @@ Only after the user approves the drafted table.
 
 1. Fetch the page once with `contentFormat: "html"`.
 2. Find the target `<table>`: the one following the `<h3>` heading "Description of the User Flows", whose header row is `User Story | Module | Acceptance Criteria | Description` (4 columns — NOT the 2-column Solution Overview table).
-3. Replace ONLY its `<tbody>` rows — one `<tr>` per requirement. Preserve `<thead>`, header styling, and any `data-colwidth` values. Multi-line cells: use `<p>` per paragraph; acceptance criteria as `<ul><li>` items.
+3. Replace ONLY its `<tbody>` rows — one `<tr>` per requirement. Preserve `<thead>`, header styling, and any `data-colwidth` values. Multi-line cells: use `<p>` per paragraph; acceptance criteria as Gherkin scenario blocks — a `<p>` per line (comment, Scenario, Given/When/Then, indented And via `&nbsp;`) or a code block, keeping the template's line structure intact.
 4. Leave every other section byte-for-byte unchanged, then `updateConfluencePage` with `contentFormat: "html"` and the full modified body.
 5. If the table already has author-written rows, ask before overwriting — offer to append.
 
