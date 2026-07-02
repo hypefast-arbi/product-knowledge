@@ -6,11 +6,23 @@ A Claude Code **plugin marketplace** holding Arbi's product-management skills an
 
 ## What's inside
 
-Two independently-installable plugins:
+Two independently-installable plugins. `pm-workflow`'s skills are grouped below
+by what they're for.
 
-| Plugin | Skills | Use it when |
-|---|---|---|
-| **pm-workflow** | `confluence-create-page`, `jira-create-ticket`, `success-criteria`, `requirement-table`, `bpmn-diagram-builder` | Doing PM execution work — PRDs, backlog, success metrics, requirement tables, process diagrams |
+### PRD creation skills
+
+| Skill | Use it when |
+|---|---|
+| `success-criteria` | Drafting/filling a PRD's Success Criteria table (Measure \| Performance indicator \| Current Value \| Target Value \| Due Date \| Source) from its goals, problem statement, and persona |
+| `requirement-table` | Filling a PRD's "Description of the User Flows" table (User Story \| Module \| Acceptance Criteria \| Description) from its Objective, Problem Statement, Persona, Solution Overview, and linked SOP docs |
+
+### Other pm-workflow skills
+
+| Skill | Use it when |
+|---|---|
+| `confluence-create-page` | Creating a new Confluence page — blank or PRD-templated |
+| `jira-create-ticket` | Creating a Jira Task/Story/Bug/Epic, including turning a PRD into an epic |
+| `bpmn-diagram-builder` | Building a BPMN process/swimlane diagram as a `.bpmn` or `.drawio` file |
 
 ## Companion repo: project knowledge (`hypefast-arbi/projects`)
 
