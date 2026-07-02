@@ -15,6 +15,10 @@ Create a new page in the **hypefast-it** Confluence site using the Atlassian Rov
 
 If the cloudId ever fails, re-discover it with `mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources`. These tools are deferred — load them first with `ToolSearch` (`select:mcp__claude_ai_Atlassian_Rovo__createConfluencePage`, etc.).
 
+## Project knowledge first (PRD pages)
+
+When the request is a PRD for a specific project, you also need knowledge about the project itself — that lives in the companion repo **https://github.com/hypefast-arbi/projects** (domain/platform plugins such as `odoo-knowledge` and `product-skills`, one folder per project/domain). Before creating the PRD, pull that context: use its installed plugin skills if present, otherwise clone/read the repo folder matching the project. It's context only — it never changes the template below (still created verbatim) — but it informs the title, the right space/parent, and any content you subsequently draft into the page's sections.
+
 ## Workflow
 
 ### 1. Gather the required inputs

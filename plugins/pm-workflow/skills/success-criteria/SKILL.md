@@ -26,6 +26,8 @@ You need three things. Get them from the user's message, or — if a Confluence 
 2. **Background / Problem Statement** — the pains being solved.
 3. **Target user persona** — who experiences the problem / will use the solution.
 
+**Project knowledge:** when the PRD belongs to a known project, complementary context about the project itself lives in the companion repo **https://github.com/hypefast-arbi/projects** (domain/platform plugins, per-project folders). Read it before proposing metrics — e.g. to know which systems/reports plausibly exist as measurement sources. It is knowledge only, never a workflow driver.
+
 **When inputs count as missing:** treat a goal/background/persona as NOT provided if it is empty OR still a template placeholder — e.g. text like "Put Explanation Here", "Describe …", or Confluence `data-type="placeholder"` content. If goals or persona are missing this way AND the user did not state them in the chat session, ask the user for them before generating. Never invent the problem.
 
 ## How to generate criteria

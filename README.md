@@ -10,8 +10,13 @@ Two independently-installable plugins:
 
 | Plugin | Skills | Use it when |
 |---|---|---|
-| **pm-workflow** | `confluence-create-page`, `jira-create-backlog-ticket`, `success-criteria`, `bpmn-diagram-builder` | Doing PM execution work — PRDs, backlog, success metrics, process diagrams |
-| **odoo-knowledge** | `odoo-essentials`, `odoo-finance`, `odoo-hr`, `odoo-productivity`, `odoo-sales`, `odoo-services`, `odoo-supply-chain` | Answering Odoo functional questions |
+| **pm-workflow** | `confluence-create-page`, `jira-create-backlog-ticket`, `success-criteria`, `requirement-table`, `bpmn-diagram-builder` | Doing PM execution work — PRDs, backlog, success metrics, requirement tables, process diagrams |
+
+## Companion repo: project knowledge (`hypefast-arbi/projects`)
+
+This repo holds the **how** — workflows, templates, and output formats for PM deliverables. Knowledge about **the projects themselves** (domain and platform knowledge, project-specific conventions — e.g. the Odoo functional skills and the Odoo requirement-table layer) lives in the companion repo [`hypefast-arbi/projects`](https://github.com/hypefast-arbi/projects).
+
+**Rule — for Claude and humans alike:** when a request targets a specific project ("create a PRD for \<project\>", "fill the requirement table for \<project\>", "write success criteria for \<project\>"), first pull the project context from the projects repo — use its installed plugin skills if present, otherwise clone/read the relevant folder. The pm-workflow skill supplies the structure; the projects repo supplies the substance. Don't guess project context that repo can provide.
 
 ## Install
 

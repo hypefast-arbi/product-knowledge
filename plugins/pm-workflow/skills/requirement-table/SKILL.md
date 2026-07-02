@@ -33,6 +33,7 @@ Gather from the PRD page (or from what the user pastes):
 3. **Solution Overview user stories** — the seed list of stories with module tags. If present, use it as the backbone of the table (refine wording, don't re-invent).
 4. **User Flows section** — links to SOP/flow documents. Read them (see below) to build user journeys; journeys drive acceptance criteria and descriptions.
 5. **Out of Scope** — never write rows for excluded scope.
+6. **Project knowledge (companion repo)** — the repo **https://github.com/hypefast-arbi/projects** holds complementary context about the project itself: domain/platform plugins (e.g. `odoo-knowledge`, `product-skills`) and per-project folders. When the PRD targets a known project, load the matching skills if installed, or clone/read that repo before drafting. It is context only — this skill still owns the workflow.
 
 **Placeholder check:** treat a section as missing if it's empty or still template placeholder text (`data-type="placeholder"`, "Put … here"). If the seed stories AND flows are both missing, ask the user for them — never invent the product.
 
