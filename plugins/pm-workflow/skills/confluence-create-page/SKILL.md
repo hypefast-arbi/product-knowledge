@@ -1,19 +1,30 @@
 ---
 name: confluence-create-page
-description: Create a new page in a Confluence space (hypefast-it) via the Atlassian Rovo MCP server. Use whenever the user asks to create a Confluence page, add a page under a parent page, make a PRD page, or create a doc in a Confluence space. Handles asking for a missing page name and choosing between a blank page or a PRD-templated page.
+description: Create a new page in a Confluence space via the Atlassian Rovo MCP server. Use whenever the user asks to create a Confluence page, add a page under a parent page, make a PRD page, or create a doc in a Confluence space. Handles asking for a missing page name and choosing between a blank page or a PRD-templated page. Organization-agnostic — resolves the site/cloudId/space at runtime.
+
 ---
 
 # Create a Confluence Page
 
-Create a new page in the **hypefast-it** Confluence site using the Atlassian Rovo MCP tools.
+Create a new page in a Confluence site using the Atlassian Rovo MCP tools. This
+skill is **organization-agnostic** — it hardcodes no site, cloudId, or space.
 
-## Fixed environment values
+## Resolve your Atlassian config
 
-- **Site:** `hypefast-it.atlassian.net`
-- **cloudId:** `a6661705-a333-4449-8206-6a19abf3d70f`
-- **Create tool:** `mcp__claude_ai_Atlassian_Rovo__createConfluencePage`
+Get the site + cloudId (and later the space) in this order:
 
-If the cloudId ever fails, re-discover it with `mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources`. These tools are deferred — load them first with `ToolSearch` (`select:mcp__claude_ai_Atlassian_Rovo__createConfluencePage`, etc.).
+1. **Workspace template first.** If your project knowledge includes an account
+   template (e.g. Hypefast's `hypefast-atlassian` skill in the companion
+   `projects` repo), use the site, cloudId, and space IDs it lists — skip
+   discovery.
+2. **Otherwise discover.** `mcp__claude_ai_Atlassian_Rovo__getAccessibleAtlassianResources`
+   returns your accessible site(s) and their cloudId.
+3. **If ambiguous** (more than one site, or no template and none given), ask the
+   user which site to use.
+
+The create tool is `mcp__claude_ai_Atlassian_Rovo__createConfluencePage`. These
+tools are deferred — load them first with `ToolSearch`
+(`select:mcp__claude_ai_Atlassian_Rovo__createConfluencePage`, etc.).
 
 ## Project knowledge first (PRD pages)
 
@@ -35,22 +46,23 @@ Use the `AskUserQuestion` tool for the page-type choice (options: "Blank page", 
 
 ### 2. Resolve the location
 
-- **If the user gives a parent page URL** (e.g. `.../spaces/TECHPRODUC/pages/1546977300/ERP`):
-  - `parentId` = the numeric ID in the URL (`1546977300`).
-  - `spaceId` = resolve from the space key in the URL (`TECHPRODUC`) — see space resolution below.
+- **If the user gives a parent page URL** (e.g. `.../spaces/<SPACE_KEY>/pages/<parentId>/<slug>`):
+  - `parentId` = the numeric ID in the URL.
+  - `spaceId` = resolve from the space key in the URL — see space resolution below.
 - **If the user gives only a space** (no parent): create at the space root — set `spaceId`, omit `parentId`.
 - **If neither is given:** ask which space (and optionally parent page) the page should go under.
 
 **Resolve a space key → spaceId** with `mcp__claude_ai_Atlassian_Rovo__getConfluenceSpaces` using the `keys` filter (do NOT list all spaces — the full list is too large):
 ```
-getConfluenceSpaces(cloudId, keys: "TECHPRODUC")  →  results[0].id  (e.g. "33166")
+getConfluenceSpaces(cloudId, keys: "<SPACE_KEY>")  →  results[0].id
 ```
-Known: `TECHPRODUC` (Tech-Product) → spaceId `33166`.
+If a workspace template is loaded, use the spaceId it already lists for that key
+instead of resolving.
 
 ### 3. Create the page
 
 The parameters for `createConfluencePage` are:
-- `cloudId`: `a6661705-a333-4449-8206-6a19abf3d70f`
+- `cloudId`: your resolved cloudId (from the workspace template or discovery)
 - `spaceId`: resolved space ID
 - `parentId`: parent page ID (omit for space root)
 - `title`: the page title
@@ -70,18 +82,20 @@ The parameters for `createConfluencePage` are:
   quarantines all of that — your context only sees the returned URL.
 
   Pass the subagent a **self-contained** prompt (it starts fresh, without this
-  skill loaded). Give it the resolved values and tell it to return only a small
-  result. Template prompt:
+  skill loaded). The subagent can't resolve relative paths against this skill, so
+  **resolve the absolute path to `prd-template.html` in this skill's own
+  directory yourself** and paste it in. Give it the resolved values and tell it
+  to return only a small result. Template prompt:
 
   ```
   Create a Confluence PRD page, then report back ONLY the result fields below — do
   NOT echo the page body.
 
   Steps:
-  1. Read the template file VERBATIM: /Users/hypefast/.claude/skills/confluence-create-page/prd-template.html
+  1. Read the template file VERBATIM: <ABSOLUTE_PATH_TO_prd-template.html_IN_THIS_SKILL_DIR>
   2. Load the create tool: ToolSearch select:mcp__claude_ai_Atlassian_Rovo__createConfluencePage
   3. Call mcp__claude_ai_Atlassian_Rovo__createConfluencePage with:
-       cloudId="a6661705-a333-4449-8206-6a19abf3d70f"
+       cloudId="<RESOLVED_CLOUD_ID>"
        spaceId="<RESOLVED_SPACE_ID>"
        parentId="<PARENT_ID or omit>"
        title="<TITLE>"
@@ -92,13 +106,15 @@ The parameters for `createConfluencePage` are:
      Do not include the page body or storage HTML in your response.
   ```
 
-  Substitute the resolved title, spaceId, parentId, and status before sending.
+  Substitute the resolved template path, cloudId, title, spaceId, parentId, and
+  status before sending.
 
 ### 4. Report back
 
 Give the user the page title, parent, space, page ID, and the page URL (the
-`_links.webui` value prefixed with `https://hypefast-it.atlassian.net/wiki`). For a
-PRD page, these come back from the subagent's result — relay them.
+`_links.webui` value prefixed with your site's wiki base,
+`https://<your-site>.atlassian.net/wiki`). For a PRD page, these come back from
+the subagent's result — relay them.
 
 ## Bodies
 
@@ -132,11 +148,12 @@ Use it verbatim — do not strip the macros (Page Properties, TOC, Jira), the
 placeholder spans, or the table styling. The user fills the placeholders in
 Confluence after the page is created.
 
-> Source of truth: this template was captured from the Confluence page
-> "Project Documentation and Requirements Overview" (TECHPRODUC, page
-> `1554907138`). If that page is updated, re-fetch it with
-> `getConfluencePage(cloudId, pageId, contentFormat:"html")` and overwrite
-> `prd-template.html`.
+> Source of truth: `prd-template.html` was captured from a Confluence
+> "Project Documentation and Requirements Overview" template page. The specific
+> source page (space + page ID) for your organization belongs in your workspace
+> template (e.g. Hypefast's `hypefast-atlassian` skill records it). If that page
+> is updated, re-fetch it with `getConfluencePage(cloudId, pageId,
+> contentFormat:"html")` and overwrite `prd-template.html`.
 
 ## Quick reference
 
@@ -144,9 +161,9 @@ Confluence after the page is created.
 ```
 ToolSearch select:mcp__claude_ai_Atlassian_Rovo__createConfluencePage
 createConfluencePage(
-  cloudId="a6661705-a333-4449-8206-6a19abf3d70f",
-  spaceId="33166",            # TECHPRODUC
-  parentId="1546977300",      # optional
+  cloudId="<RESOLVED_CLOUD_ID>",
+  spaceId="<RESOLVED_SPACE_ID>",
+  parentId="<PARENT_ID>",     # optional
   title="...",
   contentFormat="html",
   body="<p></p>",

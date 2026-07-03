@@ -67,8 +67,8 @@ Gather from the PRD page (or from what the user pastes):
 
 ## Reading from Confluence
 
-1. Extract the page ID from the URL (numeric segment, e.g. `.../pages/1555496962/...`).
-2. `getConfluencePage` with `cloudId: "hypefast-it.atlassian.net"`, the pageId. Use `contentFormat: "markdown"` for the initial read (cheaper); fetch `"html"` only when you're ready to write.
+1. Extract the page ID from the URL (numeric segment, e.g. `.../pages/<pageId>/...`).
+2. `getConfluencePage` with your resolved `cloudId` (from the workspace template if present, else `getAccessibleAtlassianResources`) and the pageId. Use `contentFormat: "markdown"` for the initial read (cheaper); fetch `"html"` only when you're ready to write.
 3. Locate the sections listed under Inputs, apply the placeholder check, and confirm your understanding with the user before drafting.
 
 ## Writing back to Confluence

@@ -82,8 +82,8 @@ It's helpful to add a temporary, review-only column showing which goal/objective
 
 When given a Confluence URL:
 
-1. Extract the page ID from the URL (the numeric segment, e.g. `.../pages/1555496962/...`).
-2. `getConfluencePage` with `cloudId: "hypefast-it.atlassian.net"`, the pageId, and `contentFormat: "html"`.
+1. Extract the page ID from the URL (the numeric segment, e.g. `.../pages/<pageId>/...`).
+2. `getConfluencePage` with your resolved `cloudId` (from the workspace template if present, else `getAccessibleAtlassianResources`), the pageId, and `contentFormat: "html"`.
 3. Pull inputs from the page: the **OBJECTIVE / goals**, **Problem Statement** (background), and **Target Customer Persona** sections. Locate the **Success Criteria** table (header cells: Measure, Performance indicator, Current Value, Target Value, Due Date, Source).
 4. Apply the placeholder check above to whatever you extract. Then show the user what you understood the goals/background/persona to be and confirm before generating.
 
