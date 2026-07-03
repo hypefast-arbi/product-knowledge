@@ -1,7 +1,7 @@
 {
   "name": "pm-workflow",
   "displayName": "PM Workflow",
-  "description": "PM execution toolkit: Confluence pages/PRDs, Jira backlog tickets, PRD success criteria, PRD requirement tables (user flows), and BPMN process diagrams.",
+  "description": "PM execution toolkit: Confluence pages/PRDs, Jira backlog tickets, PRD success criteria, PRD requirement tables (user flows), BPMN process diagrams, and syncing PRD acceptance criteria into a Gherkin AC-catalog repo.",
   "author": {
     "name": "Arbi Ramadhan",
     "email": "arbi.ramadhan@hypefast.id"

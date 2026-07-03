@@ -23,6 +23,7 @@ by what they're for.
 | `confluence-create-page` | Creating a new Confluence page — blank or PRD-templated |
 | `jira-create-ticket` | Creating a Jira Task/Story/Bug/Epic, including turning a PRD into an epic |
 | `bpmn-diagram-builder` | Building a BPMN process/swimlane diagram as a `.bpmn` or `.drawio` file |
+| `product-spec-sync` | Moving a Jira epic's stories + their already-drafted Gherkin ACs from a PRD into a "product-spec"-style AC-catalog repo |
 
 ## Companion repo: project knowledge (`hypefast-arbi/projects`)
 
