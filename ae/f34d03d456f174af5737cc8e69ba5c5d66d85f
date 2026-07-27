@@ -1,0 +1,31 @@
+.claude-plugin/marketplace.json
+  s_41de0b39c35c6d::t_520c79523758ea 16-20
+plugins/qa-workflow/.claude-plugin/plugin.json
+  s_41de0b39c35c6d::t_87e5851e9e61de 1-11
+plugins/qa-workflow/skills/test-case-doc/SKILL.md
+  s_41de0b39c35c6d::t_004250f6a35c47 1-184
+plugins/qa-workflow/skills/test-case-doc/references/confluence-blocks.html
+  s_41de0b39c35c6d::t_29f7804188f185 1-178
+README.md
+  s_41de0b39c35c6d::t_d40cace9bcdce3 61
+  s_41de0b39c35c6d::t_eb45eac6792f26 48
+  s_41de0b39c35c6d::t_5494325e3a3ae2 9-10,28-32
+  s_41de0b39c35c6d::t_6063b6a605ef3d 75,77-78
+  s_41de0b39c35c6d::t_21294e4f25db65 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "aef34d03d456f174af5737cc8e69ba5c5d66d85f",
+  "prompts": {},
+  "sessions": {
+    "s_41de0b39c35c6d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "645eece5-476b-45ed-9f5b-7abe6dba5625",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Arbi Ramadhan <arbi.ramadhan@hypefast.id>"
+    }
+  }
+}
