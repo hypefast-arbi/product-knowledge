@@ -159,8 +159,14 @@ The body can be large (a few dozen cases, more for a whole backlog). To keep the
    - **Changed expected results / status** → edit only those cells.
    - **Resolved TBDs** → update the Open Items and Open PM Questions tables.
    - Preserve every other section byte-for-byte, and **never renumber existing TC IDs**.
-3. `updateConfluencePage(cloudId, pageId, contentFormat:"html", body:<full modified body>, includeBody:false)`.
-4. Confirm via the returned incremented `version.number`; give the user the URL.
+3. `updateConfluencePage(cloudId, pageId, contentFormat:"html", body:<full modified body>, includeBody:false)`. **Do not pass a `title` parameter unless the user explicitly asked for a rename** — omitting it leaves the existing title untouched; passing any value (even one meant to be a no-op restatement) risks the model substituting a wrong/hallucinated title. This has actually happened (a real page's title was clobbered to an unrelated value during an unrelated body edit) — treat title as a field you touch only on explicit request.
+4. Confirm via the returned incremented `version.number`; give the user the URL. If you did check the response and the title looks different from what you expect, say so immediately rather than assuming it's fine.
+
+### Large, hand-retyped bodies risk silent corruption
+When a subagent (or you) must edit a large existing body by reading it, mentally editing a spot in the middle, and resubmitting the whole string, there is real risk of transcription drift over tens of thousands of characters — a subagent doing exactly this on this skill's first real page caught and fixed one typo via a post-write diff, but also separately mis-set the title (caught only because the user was told the resulting title and it didn't match). Mitigations:
+- Prefer **not re-typing the full body from memory** — fetch it once, and where your tooling allows it, treat the fetched value as an opaque string you slice/splice (e.g. string find-and-insert-after) rather than reproducing it token-by-token.
+- After any large-body update, **do a structural self-check** before reporting success: counts of key markers (number of `<h2>` test-case headings, number of a newly-inserted block, the title, any distinctive header text) should match expectations. Don't rely solely on the tool's returned `version.number` as proof the content is correct — it only proves *a* write happened, not that the write was faithful.
+- If anything about reproducing a large body verbatim feels risky, say so and stop rather than guessing.
 
 ### Token thrift (Confluence)
 `updateConfluencePage` has no partial update — it needs the **entire** body, which is large, and re-emitting it on write is expensive **output**. So:
@@ -199,3 +205,5 @@ Give the user: the page title, space/parent, page ID, and URL (`_links.webui` pr
 - Never renumber existing TC IDs on update; append.
 - Don't touch page sections you didn't generate without asking.
 - Never use `<ac:structured-macro>`/storage XML in the Confluence body — see the HTML dialect section above.
+- Never change a page's title on an update unless the user explicitly asked for a rename — omit the `title` parameter entirely rather than restating the existing one.
+- After any large-body update, self-check the result structurally (marker counts, title) before reporting success — don't treat a returned `version.number` alone as proof the write was faithful.
