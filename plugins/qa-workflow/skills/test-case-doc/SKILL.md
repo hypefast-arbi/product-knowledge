@@ -98,6 +98,7 @@ Label every case one of: **Positive**, **Negative**, **Edge Case**, **Configurat
 | **Scenario** | The `Given … And … When … Then … And …` steps. Keep it declarative and executable. |
 | **Calculation** | (When the assertion is a computed value) see below. |
 | **Expected Result** | The single, checkable outcome. If unknown/blocked, write `TBD — do not execute until <who> confirms <what>` and log it. |
+| **Execution Result** | Status (Not Run / Passed / Failed / Blocked), Executed By, Execution Date, Defect link, and free-text Actual Result. Always present but empty (`Status: Not Run`) when a case is first authored — filled in later per "Recording execution results" below. |
 
 Group cases into **`Section N — Actor: <role>`** blocks (or, when covering a whole epic/backlog, **`Section N — <Story key>: <Story title>`**, with actor sub-groupings inside if a story spans several). One grouping per section, in a sensible order.
 
@@ -171,6 +172,22 @@ The body can be large (a few dozen cases, more for a whole backlog). To keep the
 
 ### Preserve, don't clobber
 Before updating, read the current page. If it has author/QA-written content you didn't generate (executed results, defect links, manual notes), **preserve it** — append or edit surgically, and ask before overwriting anything a human added. If the page is currently empty (a fresh page created for this purpose), just write the full document.
+
+## Recording execution results
+
+A separate, later workflow from authoring: the user (or you, on their behalf) reports that some test cases were run, and you update **only** those cases' **Execution Result** block — status, executed by, date, defect link, actual result — on the already-published page.
+
+1. Get from the user, per case: which TC ID(s), the outcome (Passed/Failed/Blocked), who ran it and when (default to today/the user if unstated but confirm), the actual result observed, and a defect link/key if Failed.
+2. `getConfluencePage(cloudId, pageId, contentFormat:"html")` — one fetch.
+3. For each named TC ID, find its block and edit **only** its Execution Result table + Actual Result paragraph:
+   - `Status` → the matching status lozenge: Passed = `data-color="green"`, Failed = `data-color="red"`, Blocked = `data-color="yellow"`, Not Run = `data-color="neutral"`.
+   - Fill `Executed By`, `Execution Date`, `Defect` (issue key/link if any), and the `Actual Result` paragraph.
+   - Do not touch that case's Preconditions/Gherkin/Expected Result, or any other case, section, or table on the page.
+4. Roll up the header panel's overall **Status** lozenge from the aggregate of all 36 (or however many) cases' Execution Result statuses: any `Failed` → header `Failed` (red); else any case still `Not Run` → header `In Progress` (yellow); else all `Passed`/`Blocked` with none `Not Run` → header `Passed` (green) if all Passed, otherwise `Blocked` (yellow). State the computed rollup to the user rather than silently deciding if it's ambiguous (e.g. a mix of Blocked and Passed with no Failed).
+5. `updateConfluencePage(cloudId, pageId, contentFormat:"html", body:<full modified body>, includeBody:false)` — same token-thrift rules as an update (one read, one write, `includeBody:false`, no verification re-fetch).
+6. Report back: which TC IDs were updated, their new statuses, and the new overall header status.
+
+For a small number of cases (a handful), do this inline. For updating many cases at once (a full execution pass), delegate to a subagent the same way as a large create/update — give it the exact TC ID → result mapping and the resolved cloudId/pageId, and have it return only the updated TC IDs + new `version.number`.
 
 ## Report back
 Give the user: the page title, space/parent, page ID, and URL (`_links.webui` prefixed with the site's wiki base, `https://<your-site>.atlassian.net/wiki`). For a delegated create, relay these from the subagent's result.

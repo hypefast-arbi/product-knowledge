@@ -154,6 +154,22 @@
   <p><strong>Expected Result:</strong> {{EXPECTED_RESULT}}</p>
 </div>
 
+<!-- Execution Result — always present, one per test case. On first authoring, Status is
+     always "Not Run" and the other fields are empty; a later execution-recording pass
+     (see SKILL.md "Recording execution results") fills these in WITHOUT touching anything
+     else in the case block. Status color: Not Run=neutral, Passed=green, Failed=red,
+     Blocked=yellow. -->
+<h4>Execution Result</h4>
+<table>
+  <tbody>
+    <tr><th><p>Status</p></th><td><p><span data-type="status" data-color="neutral">Not Run</span></p></td></tr>
+    <tr><th><p>Executed By</p></th><td><p>{{EXECUTED_BY}}</p></td></tr>
+    <tr><th><p>Execution Date</p></th><td><p>{{EXECUTION_DATE}}</p></td></tr>
+    <tr><th><p>Defect</p></th><td><p>{{DEFECT_LINK}}</p></td></tr>
+  </tbody>
+</table>
+<p><strong>Actual Result:</strong> {{ACTUAL_RESULT}}</p>
+
 <!-- ============ 8. OPEN PM / ENG QUESTIONS ============ (once) -->
 <h1>Open PM / Eng Questions</h1>
 <table>
