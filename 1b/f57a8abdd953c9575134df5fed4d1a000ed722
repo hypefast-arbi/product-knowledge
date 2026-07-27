@@ -1,0 +1,22 @@
+plugins/qa-workflow/skills/test-case-doc/references/confluence-blocks.html
+  s_41de0b39c35c6d::t_3ebc7e7a11b272 157-172
+plugins/qa-workflow/skills/test-case-doc/SKILL.md
+  s_41de0b39c35c6d::t_f56ccbfcac5db7 176-191
+  s_41de0b39c35c6d::t_f5c80440571e8a 101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "1bf57a8abdd953c9575134df5fed4d1a000ed722",
+  "prompts": {},
+  "sessions": {
+    "s_41de0b39c35c6d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "645eece5-476b-45ed-9f5b-7abe6dba5625",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Arbi Ramadhan <arbi.ramadhan@hypefast.id>"
+    }
+  }
+}
