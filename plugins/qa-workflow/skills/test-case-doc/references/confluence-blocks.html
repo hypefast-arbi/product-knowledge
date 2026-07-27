@@ -27,19 +27,18 @@
 -->
 
 <!-- ============ 1. HEADER PANEL ============ (once) -->
+<!-- IMPORTANT: panels cannot contain tables per this API's ADF nesting rules
+     (a <table> inside data-type="panel-*" is rejected with a 500 error) — use
+     labeled paragraphs instead, one per field. -->
 <div data-type="panel-info">
-  <table>
-    <tbody>
-      <tr><th><p>Feature</p></th><td><p>{{FEATURE_NAME}}</p></td></tr>
-      <tr><th><p>App</p></th><td><p>{{APP_NAME}}</p></td></tr>
-      <tr><th><p>URL</p></th><td><p><a href="{{APP_URL}}">{{APP_URL}}</a></p></td></tr>
-      <tr><th><p>AC Source</p></th><td><p>{{AC_SOURCE}}</p></td></tr>
-      <tr><th><p>PRD Source</p></th><td><p>{{PRD_SOURCE}}</p></td></tr>
-      <tr><th><p>Model</p></th><td><p>Given / When / Then</p></td></tr>
-      <tr><th><p>Created</p></th><td><p>{{CREATED_DATE}}</p></td></tr>
-      <tr><th><p>Status</p></th><td><p><span data-type="status" data-color="neutral">Not Executed</span></p></td></tr>
-    </tbody>
-  </table>
+  <p><strong>Feature:</strong> {{FEATURE_NAME}}</p>
+  <p><strong>App:</strong> {{APP_NAME}}</p>
+  <p><strong>URL:</strong> <a href="{{APP_URL}}">{{APP_URL}}</a></p>
+  <p><strong>AC Source:</strong> {{AC_SOURCE}}</p>
+  <p><strong>PRD Source:</strong> {{PRD_SOURCE}}</p>
+  <p><strong>Model:</strong> Given / When / Then</p>
+  <p><strong>Created:</strong> {{CREATED_DATE}}</p>
+  <p><strong>Status:</strong> <span data-type="status" data-color="neutral">Not Executed</span></p>
 </div>
 
 <!-- ============ 2. TABLE OF CONTENTS ============ (once, optional) -->
