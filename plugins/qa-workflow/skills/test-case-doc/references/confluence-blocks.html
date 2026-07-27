@@ -1,0 +1,178 @@
+<!--
+  Confluence HTML+ building blocks for a Test-Case Document.
+  ============================================================
+  This is the HTML+ dialect the Atlassian Rovo MCP tools accept for
+  contentFormat:"html" — plain HTML plus `data-type` attributes for
+  Confluence-native constructs. Do NOT use storage-format <ac:structured-macro>
+  — the API rejects it.
+
+  Assemble the page body by concatenating these blocks IN THIS ORDER:
+     1. HEADER PANEL          (once)
+     2. TOC                   (once, optional)
+     3. AC REFERENCE TABLE    (once)
+     4. OPEN ITEMS TABLE      (once)
+     5. TEST DATA TABLE(S)    (once, repeat table as needed)
+     6. TRACEABILITY SUMMARY  (once)
+     7. SECTION HEADING       (once per group)  + TEST-CASE BLOCK (once per case)
+     8. OPEN PM QUESTIONS      (once)
+
+  Rules:
+   - Pass the concatenated result as `body` with contentFormat:"html".
+   - Replace every {{PLACEHOLDER}}. Repeat the marked repeatable rows/blocks.
+   - HTML-escape user text (& -> &amp;, < -> &lt;, > -> &gt;) EXCEPT inside
+     <pre><code> blocks, where it must also be escaped (this is a text node, not CDATA —
+     HTML+ has no CDATA section; escape < > & the same as anywhere else in HTML).
+   - Add a `Story` column to the AC reference / traceability tables only when
+     covering a Jira epic/backlog (see SKILL.md "Covering a whole epic or backlog").
+-->
+
+<!-- ============ 1. HEADER PANEL ============ (once) -->
+<div data-type="panel-info">
+  <table>
+    <tbody>
+      <tr><th><p>Feature</p></th><td><p>{{FEATURE_NAME}}</p></td></tr>
+      <tr><th><p>App</p></th><td><p>{{APP_NAME}}</p></td></tr>
+      <tr><th><p>URL</p></th><td><p><a href="{{APP_URL}}">{{APP_URL}}</a></p></td></tr>
+      <tr><th><p>AC Source</p></th><td><p>{{AC_SOURCE}}</p></td></tr>
+      <tr><th><p>PRD Source</p></th><td><p>{{PRD_SOURCE}}</p></td></tr>
+      <tr><th><p>Model</p></th><td><p>Given / When / Then</p></td></tr>
+      <tr><th><p>Created</p></th><td><p>{{CREATED_DATE}}</p></td></tr>
+      <tr><th><p>Status</p></th><td><p><span data-type="status" data-color="neutral">Not Executed</span></p></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 2. TABLE OF CONTENTS ============ (once, optional) -->
+<div data-type="extension" data-extension-key="toc" data-extension-type="com.atlassian.confluence.macro.core" data-parameters="{&quot;minLevel&quot;:&quot;1&quot;,&quot;maxLevel&quot;:&quot;2&quot;}"></div>
+
+<!-- ============ 3. AC REFERENCE TABLE ============ (once) -->
+<h1>Acceptance Criteria Reference</h1>
+<table>
+  <thead>
+    <tr>
+      <th><p>AC ID</p></th>
+      <th><p>Description</p></th>
+      <!-- OPTIONAL: <th><p>Story</p></th> when covering an epic/backlog -->
+    </tr>
+  </thead>
+  <tbody>
+    <!-- REPEAT this row per AC -->
+    <tr><td><p>{{AC_ID}}</p></td><td><p>{{AC_DESCRIPTION}}</p></td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 4. OPEN ITEMS TABLE ============ (once) -->
+<!-- The assumptions/decisions ledger: anything not covered and why. -->
+<h1>Open Items</h1>
+<table>
+  <thead>
+    <tr>
+      <th><p>#</p></th>
+      <th><p>Item</p></th>
+      <th><p>Status</p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- REPEAT per open item. Status e.g. "TBD — …", "Resolved YYYY-MM-DD — …", "Skipped per instruction — …", "No AC available — …" -->
+    <tr><td><p>{{N}}</p></td><td><p>{{ITEM}}</p></td><td><p>{{STATUS}}</p></td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 5. TEST DATA TABLE ============ (once; duplicate the <table> for each dataset) -->
+<h1>Test Data</h1>
+<p><em>Login credentials are not embedded here — substitute the staging login that maps to each account at execution time.</em></p>
+<h3>{{DATASET_TITLE}}</h3>
+<table>
+  <thead>
+    <tr>
+      <!-- REPEAT header cell per column -->
+      <th><p>{{COL_HEADER}}</p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- REPEAT row; REPEAT cell per column -->
+    <tr><td><p>{{CELL}}</p></td></tr>
+  </tbody>
+</table>
+
+<!-- ============ 6. TRACEABILITY SUMMARY ============ (once) -->
+<h1>Summary</h1>
+<table>
+  <thead>
+    <tr>
+      <th><p>TC ID</p></th>
+      <th><p>Title</p></th>
+      <th><p>Type</p></th>
+      <!-- OPTIONAL: <th><p>Story</p></th> when covering an epic/backlog -->
+      <th><p>AC Ref</p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- REPEAT per test case -->
+    <tr>
+      <td><p>{{TC_ID}}</p></td>
+      <td><p>{{TC_TITLE}}</p></td>
+      <td><p>{{TC_TYPE}}</p></td>
+      <td><p>{{TC_AC_REF}}</p></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ============ 7a. SECTION HEADING ============ (once per group) -->
+<h1>Section {{SECTION_N}} — {{SECTION_LABEL}}</h1>
+<!-- SECTION_LABEL is "Actor: <role>" for a single-feature doc, or
+     "<Story key>: <Story title>" when covering an epic/backlog. -->
+
+<!-- ============ 7b. TEST-CASE BLOCK ============ (once per test case) -->
+<h2>{{TC_ID}}: {{TC_TITLE}}</h2>
+<table>
+  <tbody>
+    <tr><th><p>ID</p></th><td><p>{{TC_ID}}</p></td></tr>
+    <tr><th><p>Preconditions</p></th><td><p>{{PRECONDITIONS}}</p></td></tr>
+    <tr><th><p>Test Type</p></th><td><p>{{TC_TYPE}}</p></td></tr>
+    <tr><th><p>Playwright Tag</p></th><td><p><code>{{PLAYWRIGHT_TAG}}</code></p></td></tr>
+    <tr><th><p>AC Reference</p></th><td><p>{{AC_REF}}</p></td></tr>
+    <!-- OPTIONAL: include only when covering a Jira epic/backlog -->
+    <tr><th><p>Story</p></th><td><p>{{STORY_KEY}}</p></td></tr>
+    <!-- OPTIONAL: include only when the case pins specific data -->
+    <tr><th><p>Test Data</p></th><td><p>{{TEST_DATA}}</p></td></tr>
+  </tbody>
+</table>
+<pre><code class="language-gherkin">{{GHERKIN_SCENARIO}}</code></pre>
+
+<!-- OPTIONAL: Calculation block — include only for computed assertions. Omit entirely otherwise. -->
+<div data-type="panel-note">
+  <p><strong>Calculation — {{CALC_LABEL}}</strong></p>
+  <ul>
+    <li><p><strong>Formula:</strong> {{FORMULA_OR_TBD}}</p></li>
+    <li><p><strong>Rounding / format:</strong> {{ROUNDING_FORMAT}}</p></li>
+    <li><p><strong>Input values:</strong> capture at execution time (not fabricated here).</p></li>
+  </ul>
+</div>
+
+<!-- Expected Result — always present. Use panel-warning when the result is TBD/blocked, panel-success otherwise. -->
+<div data-type="{{EXPECTED_RESULT_PANEL_TYPE}}">
+  <p><strong>Expected Result:</strong> {{EXPECTED_RESULT}}</p>
+</div>
+
+<!-- ============ 8. OPEN PM / ENG QUESTIONS ============ (once) -->
+<h1>Open PM / Eng Questions</h1>
+<table>
+  <thead>
+    <tr>
+      <th><p>#</p></th>
+      <th><p>Question</p></th>
+      <th><p>Related AC / Story</p></th>
+      <th><p>Why it's blocking</p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- REPEAT per open question -->
+    <tr>
+      <td><p>{{N}}</p></td>
+      <td><p>{{QUESTION}}</p></td>
+      <td><p>{{RELATED_AC}}</p></td>
+      <td><p>{{WHY_BLOCKING}}</p></td>
+    </tr>
+  </tbody>
+</table>

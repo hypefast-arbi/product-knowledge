@@ -6,8 +6,8 @@ A Claude Code **plugin marketplace** holding Arbi's product-management skills an
 
 ## What's inside
 
-Two independently-installable plugins. `pm-workflow`'s skills are grouped below
-by what they're for.
+Two independently-installable plugins: `pm-workflow` and `qa-workflow`.
+`pm-workflow`'s skills are grouped below by what they're for.
 
 ### PRD creation skills
 
@@ -25,6 +25,12 @@ by what they're for.
 | `bpmn-diagram-builder` | Building a BPMN process/swimlane diagram as a `.bpmn` or `.drawio` file |
 | `product-spec-sync` | Moving a Jira epic's stories + their already-drafted Gherkin ACs from a PRD into a "product-spec"-style AC-catalog repo |
 
+### qa-workflow skills
+
+| Skill | Use it when |
+|---|---|
+| `test-case-doc` | Authoring a Given/When/Then test-case document from acceptance criteria (a `.feature` file, a PRD, a Jira epic, or a whole board/backlog) with full AC↔TC traceability, then creating/updating it as a Confluence page |
+
 ## Companion repo: project knowledge (`hypefast-arbi/projects`)
 
 This repo holds the **how** — workflows, templates, and output formats for PM deliverables. Knowledge about **the projects themselves** (domain and platform knowledge, project-specific conventions — e.g. the Odoo functional skills and the Odoo requirement-table layer) lives in the companion repo [`hypefast-arbi/projects`](https://github.com/hypefast-arbi/projects).
@@ -39,7 +45,7 @@ claude plugin marketplace add hypefast-arbi/product-knowledge
 
 # install only what you need on this machine
 claude plugin install pm-workflow@product-knowledge
-claude plugin install odoo-knowledge@product-knowledge
+claude plugin install qa-workflow@product-knowledge
 ```
 
 Or from inside a session: `/plugin marketplace add hypefast-arbi/product-knowledge` then `/plugin install pm-workflow@product-knowledge`.
@@ -52,7 +58,7 @@ At session start Claude loads **only each skill's `name` + `description`** (the 
 
 So the always-on token cost of a machine = the sum of the frontmatter descriptions of every **installed** skill. The design here keeps that minimal:
 
-1. **Selective install.** A laptop that only does PM work installs `pm-workflow` and pays nothing for the 7 Odoo descriptions. This is the single biggest lever.
+1. **Selective install.** A laptop that only does PM work installs `pm-workflow` and pays nothing for the `qa-workflow` descriptions, and vice versa for a QA-only machine. This is the single biggest lever.
 2. **Tight descriptions.** Each description carries just enough trigger keywords to auto-activate, no prose. (`bpmn-diagram-builder` was trimmed from ~1,500 to ~440 chars.)
 3. **Progressive disclosure.** Heavy detail lives in `references/` (e.g. the BPMN DI / mxGraph references) and loads only on demand, not at startup.
 
@@ -66,9 +72,10 @@ plugins/
   pm-workflow/
     .claude-plugin/plugin.json
     skills/<skill>/SKILL.md
-  odoo-knowledge/
+  qa-workflow/
     .claude-plugin/plugin.json
-    skills/<skill>/SKILL.md
+    skills/test-case-doc/SKILL.md
+                        /references/confluence-blocks.html
 ```
 
 ## Editing a skill

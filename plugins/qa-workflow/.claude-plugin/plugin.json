@@ -1,0 +1,11 @@
+{
+  "name": "qa-workflow",
+  "displayName": "QA Workflow",
+  "description": "SDET/QA execution toolkit: author Given/When/Then test-case documents from acceptance criteria with full AC↔TC traceability, then create and update them as Confluence pages. Organization-agnostic.",
+  "author": {
+    "name": "Arbi Ramadhan",
+    "email": "arbi.ramadhan@hypefast.id"
+  },
+  "repository": "https://github.com/hypefast-arbi/product-knowledge",
+  "keywords": ["qa", "sdet", "test-cases", "gherkin", "acceptance-criteria", "confluence", "traceability", "playwright"]
+}

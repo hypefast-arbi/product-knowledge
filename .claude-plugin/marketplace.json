@@ -13,6 +13,11 @@
       "name": "pm-workflow",
       "source": "./plugins/pm-workflow",
       "description": "PM execution toolkit: create Confluence pages/PRDs, file Jira backlog tickets, write PRD success criteria, fill PRD requirement tables (Description of the User Flows), and build BPMN process diagrams."
+    },
+    {
+      "name": "qa-workflow",
+      "source": "./plugins/qa-workflow",
+      "description": "SDET/QA execution toolkit: author Given/When/Then test-case documents from acceptance criteria with full AC↔TC traceability, then create and update them as Confluence pages."
     }
   ]
 }
