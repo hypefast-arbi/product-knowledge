@@ -1,0 +1,20 @@
+plugins/qa-workflow/skills/test-case-doc/SKILL.md
+  s_41de0b39c35c6d::t_f3d10a1d8d8d98 162-169
+  s_41de0b39c35c6d::t_4cd9ab1927aa8f 208-209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "ee5eb034e0cf63b03bda9e39d4371a2e17622b43",
+  "prompts": {},
+  "sessions": {
+    "s_41de0b39c35c6d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "645eece5-476b-45ed-9f5b-7abe6dba5625",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Arbi Ramadhan <arbi.ramadhan@hypefast.id>"
+    }
+  }
+}
