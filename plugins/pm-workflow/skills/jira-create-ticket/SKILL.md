@@ -157,6 +157,28 @@ user stories into N Story tickets, derive each title like this:
    verbatim and nothing else** — no acceptance criteria, no bold lead-in, no
    extra commentary appended.
 
+## Step 2d — Cross-referencing tickets: create, then back-fill real keys
+
+When a batch of tickets **references each other** ("Feeds S2", "Depends on
+S1", "the closing workflow is S5"), the real issue keys don't exist until the
+tickets are created — so the drafts must use placeholder labels (`S1..Sn`).
+**Do not ship tickets with those placeholders** and wait to be asked to fix
+them; plan the back-fill into the same task as one two-phase workflow:
+
+1. Draft each description with placeholder labels (`S1..Sn`) for cross-refs.
+2. Create all tickets (Step 3), capturing the returned `label → real key`
+   map. **Keys are NOT sequential or predictable** — Jira skips numbers
+   (e.g. `ERP-56 → 74, 75, 77, 78, 79, 80`, skipping 76), so never guess a
+   key; read it back from each create response.
+3. Before reporting completion, **back-fill**: regex-replace every
+   placeholder (`\bS[1-6]\b` — word-boundary, so hyphenated/adjacent tokens
+   aren't clobbered) with its real key in the source files, then push the
+   corrected descriptions via `editJiraIssue` (batch → subagent, per Step 3).
+4. Only then report done, with real keys in every cross-reference.
+
+References to **already-existing** tickets (e.g. a dependency on a prior
+epic's story) are real keys from the start and need no back-fill.
+
 ## Step 3 — Create the issue inline (single) or via a subagent (bulk)
 
 For **one** issue, call the tool directly yourself — **do not delegate to a
